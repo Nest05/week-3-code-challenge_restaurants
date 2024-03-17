@@ -99,5 +99,20 @@ if __name__ == '__main__':
     # restaurant_review_management.add_customer('John', 'Ouma')
     # restaurant_review_management.add_customer('Monica', 'Mwangi')
 
-    restaurant_review_management
+    # restaurant_review_management.associate_review(1, 2, 3)
+    # restaurant_review_management.associate_review(1, 1, 2)
+    # restaurant_review_management.associate_review(1, 3, 4)
+    # restaurant_review_management.associate_review(1, 4, 3)
+    # restaurant_review_management.associate_review(1, 5, 1)
+    # restaurant_review_management.associate_review(2, 1, 4)
+    # restaurant_review_management.associate_review(2, 2, 3)
+    # restaurant_review_management.associate_review(2, 3, 5)
+    # restaurant_review_management.associate_review(2, 4, 4)
+    # restaurant_review_management.associate_review(2, 5, 5)
+    # restaurant_review_management.associate_review(3, 4, 4)
+    # restaurant_review_management.associate_review(3, 3, 4)
+    # restaurant_review_management.associate_review(3, 2, 5)
+    # restaurant_review_management.associate_review(3, 1, 4)
+    # restaurant_review_management.associate_review(3, 5, 5)
+
     
