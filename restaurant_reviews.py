@@ -84,6 +84,14 @@ class ReviewManagementSystem:
             self.session.rollback()
             print(f'Error: {e}')
 
+    def all_reviews_for_restaurant(self, restaurant_id):
+        reviews = self.session.query(Review).filter_by(restaurant_id=restaurant_id).all()
+
+        if reviews:
+            return reviews
+        else:
+            print("No reviews found for the restaurant")
+            return []
 
 if __name__ == '__main__':
     restaurant_review_management = ReviewManagementSystem("restaurant_review_manager.db")
@@ -116,3 +124,6 @@ if __name__ == '__main__':
     # restaurant_review_management.associate_review(3, 5, 5)
 
     
+    reviews = restaurant_review_management.all_reviews_for_restaurant(1)
+    for review in reviews:
+        print(review.star_rating)
