@@ -24,12 +24,13 @@ class Customer(Base):
 class Review(Base):
     __tablename__ = 'reviews'
 
-    restaurant_id = Column(Integer, ForeignKey('restaurants.id'), primary_key=True, nullable=False)
-    customer_id = Column(Integer, ForeignKey('customers.id'), primary_key=True, nullable=False)
+    restaurant_name = Column(String, ForeignKey('restaurants.name'), primary_key=True, nullable=False)
+    customer_first_name = Column(String, nullable=False)
+    customer_last_name = Column(String, ForeignKey('customers.last_name'), primary_key=True, nullable=False)
     star_rating = Column(Integer, nullable=False)
 
     __table_args__ = (
-        UniqueConstraint('restaurant_id', 'customer_id', 'star_rating', name='_restaurant_customer_uc'),
+        UniqueConstraint('restaurant_name', 'customer_last_name', 'star_rating', name='_restaurant_customer_uc'),
     )
 
 class ReviewManagementSystem:
@@ -70,11 +71,11 @@ class ReviewManagementSystem:
             self.session.rollback()
             print(f'Error: {e}')
 
-    def associate_review(self, restaurant_id, customer_id, star_rating):
+    def associate_review(self, restaurant_name,customer_first_name, customer_last_name, star_rating):
         # if not restaurant_id or not customer_id or not star_rating:
         #     print("Error: fields cannot be empty")
 
-        review = Review(restaurant_id=restaurant_id, customer_id=customer_id, star_rating=star_rating)
+        review = Review(restaurant_name=restaurant_name, customer_first_name=customer_first_name ,customer_last_name=customer_last_name, star_rating=star_rating)
 
         try:
             self.session.add(review)
@@ -84,8 +85,8 @@ class ReviewManagementSystem:
             self.session.rollback()
             print(f'Error: {e}')
 
-    def all_reviews_for_restaurant(self, restaurant_id):
-        reviews = self.session.query(Review).filter_by(restaurant_id=restaurant_id).all()
+    def all_reviews_for_restaurant(self, restaurant_name):
+        reviews = self.session.query(Review).filter_by(restaurant_name=restaurant_name).all()
 
         if reviews:
             return reviews
@@ -107,23 +108,25 @@ if __name__ == '__main__':
     # restaurant_review_management.add_customer('John', 'Ouma')
     # restaurant_review_management.add_customer('Monica', 'Mwangi')
 
-    # restaurant_review_management.associate_review(1, 2, 3)
-    # restaurant_review_management.associate_review(1, 1, 2)
-    # restaurant_review_management.associate_review(1, 3, 4)
-    # restaurant_review_management.associate_review(1, 4, 3)
-    # restaurant_review_management.associate_review(1, 5, 1)
-    # restaurant_review_management.associate_review(2, 1, 4)
-    # restaurant_review_management.associate_review(2, 2, 3)
-    # restaurant_review_management.associate_review(2, 3, 5)
-    # restaurant_review_management.associate_review(2, 4, 4)
-    # restaurant_review_management.associate_review(2, 5, 5)
-    # restaurant_review_management.associate_review(3, 4, 4)
-    # restaurant_review_management.associate_review(3, 3, 4)
-    # restaurant_review_management.associate_review(3, 2, 5)
-    # restaurant_review_management.associate_review(3, 1, 4)
-    # restaurant_review_management.associate_review(3, 5, 5)
+    # restaurant_review_management.associate_review('Jajamelo', 'John',  'Kimani', 3)
+    # restaurant_review_management.associate_review('Jajamelo', 'Nestor', 'Masinde', 2)
+    # restaurant_review_management.associate_review('Jajamelo', 'Levis', 'Ngige', 4)
+    # restaurant_review_management.associate_review('Jajamelo', 'Naomi', 'Lagat', 3)
+    # restaurant_review_management.associate_review('Jajamelo', 'Monica', 'Mwangi', 1)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Nestor', 'Masinde', 4)
+    # restaurant_review_management.associate_review('Mama Rocks', 'John', 'Kimani', 3)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Levis', 'Ngige', 5)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Naomi', 'Lagat', 4)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Monica', 'Mwangi', 5)
+    # restaurant_review_management.associate_review('Urban Burger', 'Naomi', 'Lagat', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'Levis', 'Ngige', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'John', 'Kimani', 5)
+    # restaurant_review_management.associate_review('Urban Burger', 'Nestor', 'Masinde', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'Monica', 'Mwangi', 5)
 
     
-    reviews = restaurant_review_management.all_reviews_for_restaurant(1)
+    reviews = restaurant_review_management.all_reviews_for_restaurant('Mama Rocks')
     for review in reviews:
-        print(review.star_rating)
+        print(f"Review for {review.restaurant_name} by {review.customer_first_name} {review.customer_last_name}: {review.star_rating} stars.")
+
+    # "Review for {restaurant.name} by {review.customer_first_name} {review.customer_last_name}: {review.star_rating} stars."
