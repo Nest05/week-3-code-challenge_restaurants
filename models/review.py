@@ -21,13 +21,13 @@ class Review(Base):
         UniqueConstraint('restaurant_name', 'customer_last_name', 'star_rating', name='_restaurant_customer_uc'),
     )
 
-    def customer():
-        pass
+    def customer(self):
+        return self.customer
 
-    def restaurant():
-        pass
+    def restaurant(self):
+        return self.restaurant
 
-    def full_review():
-        pass
+    def full_review(self):
+        return f"Revies for {self.restaurant_name} by {self.customer_first_name} {self.customer_last_name}: {self.star_rating} stars "
 
     
