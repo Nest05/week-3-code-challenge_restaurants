@@ -12,7 +12,7 @@ class Restaurant(Base):
     price = Column(Integer, nullable=False)
 
     customers = relationship('customer.Customer', secondary="review.reviews")
-    children = relationship("Child")
+    
     reviews = relationship('review.Review', backref='restaurant')
 
     def reviews(self):
