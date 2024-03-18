@@ -5,20 +5,24 @@ from sqlalchemy.ext.declarative import declarative_base
 
 Base = declarative_base(1)
 
+
 class Customer(Base):
     __tablename__ = 'customers'
 
     id = Column(Integer, primary_key=True, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, unique=True, nullable=False)
+    
+    from review import Review
+    from restaurant import Restaurant
+    
+    reviews = relationship('Review', backref='customer')
+    restaurants = relationship('Restaurant', secondary = 'review.reviews' )
 
-    reviews = relationship('review.Review', backref='customer')
-    restaurants = relationship('restaurant.Restaurant', secondary = 'review.reviews' )
-
-    def reviews(self):
+    def customer_reviews(self):
         return self.reviews
 
-    def restaurants(self):
+    def customer_restaurants(self):
         return self.restaurants
 
     def full_name(self):
