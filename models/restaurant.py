@@ -1,5 +1,3 @@
-# restaurant.py
-
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.orm import relationship, declarative_base
 
@@ -13,3 +11,15 @@ class Restaurant(Base):
     price = Column(Integer, nullable=False)
 
     customers = relationship('Customer', secondary="reviews")
+
+    def reviews():
+        pass
+
+    def customers():
+        pass
+    
+    def fanciest():
+        pass
+
+    def all_reviews():
+        pass

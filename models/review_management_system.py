@@ -44,11 +44,11 @@ class ReviewManagementSystem:
             self.session.rollback()
             print(f'Error: {e}')
 
-    def associate_review(self, restaurant_name,customer_first_name, customer_last_name, star_rating):
+    def associate_review(self, restaurant_name, customer_first_name, customer_last_name, star_rating):
         # if not restaurant_id or not customer_id or not star_rating:
         #     print("Error: fields cannot be empty")
 
-        review = Review(restaurant_name=restaurant_name, customer_first_name=customer_first_name ,customer_last_name=customer_last_name, star_rating=star_rating)
+        review = Review(restaurant_name=restaurant_name, customer_first_name=customer_first_name, customer_last_name=customer_last_name, star_rating=star_rating)
 
         try:
             self.session.add(review)
@@ -58,32 +58,32 @@ class ReviewManagementSystem:
             self.session.rollback()
             print(f'Error: {e}')
 
-if __name__ == '__main__':
-    restaurant_review_management = ReviewManagementSystem("restaurant_review_manager.db")
+# if __name__ == '__main__':
+#     restaurant_review_management = ReviewManagementSystem("restaurant_review_manager.db")
 
-    restaurant_review_management.add_restaurant('Jajamelo', 500)
-    restaurant_review_management.add_restaurant('Mama Rocks', 1000)
-    restaurant_review_management.add_restaurant('Urban Burger', 1200)
+    # restaurant_review_management.add_restaurant('Jajamelo', 500)
+    # restaurant_review_management.add_restaurant('Mama Rocks', 1000)
+    # restaurant_review_management.add_restaurant('Urban Burger', 1200)
 
-    restaurant_review_management.add_customer('Nestor', 'Masinde')
-    restaurant_review_management.add_customer('John', 'Kimani')
-    restaurant_review_management.add_customer('Levis', 'Ngige')
-    restaurant_review_management.add_customer('Naomi', 'Lagat')
-    restaurant_review_management.add_customer('John', 'Ouma')
-    restaurant_review_management.add_customer('Monica', 'Mwangi')
+    # restaurant_review_management.add_customer('Nestor', 'Masinde')
+    # restaurant_review_management.add_customer('John', 'Kimani')
+    # restaurant_review_management.add_customer('Levis', 'Ngige')
+    # restaurant_review_management.add_customer('Naomi', 'Lagat')
+    # restaurant_review_management.add_customer('John', 'Ouma')
+    # restaurant_review_management.add_customer('Monica', 'Mwangi')
 
-    restaurant_review_management.associate_review('Jajamelo', 'John',  'Kimani', 3)
-    restaurant_review_management.associate_review('Jajamelo', 'Nestor', 'Masinde', 2)
-    restaurant_review_management.associate_review('Jajamelo', 'Levis', 'Ngige', 4)
-    restaurant_review_management.associate_review('Jajamelo', 'Naomi', 'Lagat', 3)
-    restaurant_review_management.associate_review('Jajamelo', 'Monica', 'Mwangi', 1)
-    restaurant_review_management.associate_review('Mama Rocks', 'Nestor', 'Masinde', 4)
-    restaurant_review_management.associate_review('Mama Rocks', 'John', 'Kimani', 3)
-    restaurant_review_management.associate_review('Mama Rocks', 'Levis', 'Ngige', 5)
-    restaurant_review_management.associate_review('Mama Rocks', 'Naomi', 'Lagat', 4)
-    restaurant_review_management.associate_review('Mama Rocks', 'Monica', 'Mwangi', 5)
-    restaurant_review_management.associate_review('Urban Burger', 'Naomi', 'Lagat', 4)
-    restaurant_review_management.associate_review('Urban Burger', 'Levis', 'Ngige', 4)
-    restaurant_review_management.associate_review('Urban Burger', 'John', 'Kimani', 5)
-    restaurant_review_management.associate_review('Urban Burger', 'Nestor', 'Masinde', 4)
-    restaurant_review_management.associate_review('Urban Burger', 'Monica', 'Mwangi', 5)
+    # restaurant_review_management.associate_review('Jajamelo', 'John',  'Kimani', 3)
+    # restaurant_review_management.associate_review('Jajamelo', 'Nestor', 'Masinde', 2)
+    # restaurant_review_management.associate_review('Jajamelo', 'Levis', 'Ngige', 4)
+    # restaurant_review_management.associate_review('Jajamelo', 'Naomi', 'Lagat', 3)
+    # restaurant_review_management.associate_review('Jajamelo', 'Monica', 'Mwangi', 1)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Nestor', 'Masinde', 4)
+    # restaurant_review_management.associate_review('Mama Rocks', 'John', 'Kimani', 3)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Levis', 'Ngige', 5)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Naomi', 'Lagat', 4)
+    # restaurant_review_management.associate_review('Mama Rocks', 'Monica', 'Mwangi', 5)
+    # restaurant_review_management.associate_review('Urban Burger', 'Naomi', 'Lagat', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'Levis', 'Ngige', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'John', 'Kimani', 5)
+    # restaurant_review_management.associate_review('Urban Burger', 'Nestor', 'Masinde', 4)
+    # restaurant_review_management.associate_review('Urban Burger', 'Monica', 'Mwangi', 5)

@@ -1,6 +1,6 @@
-from sqlalchemy import create_engine, Column, Integer, String, ForeignKey, UniqueConstraint
+from sqlalchemy import Column, Integer, String, ForeignKey, UniqueConstraint
 
-from sqlalchemy.orm import sessionmaker, relationship, declarative_base
+from sqlalchemy.orm import  declarative_base
 
 Base = declarative_base()
 
@@ -15,3 +15,14 @@ class Review(Base):
     __table_args__ = (
         UniqueConstraint('restaurant_name', 'customer_last_name', 'star_rating', name='_restaurant_customer_uc'),
     )
+
+    def customer():
+        pass
+
+    def restaurant():
+        pass
+
+    def full_review():
+        pass
+
+    
