@@ -41,58 +41,58 @@ class ReviewManagementSystem:
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
 
-    def add_restaurant(self, name, price):
+#     def add_restaurant(self, name, price):
 
-        if not name or not price:
-            print("Error: fields cannot be empty")
+#         if not name or not price:
+#             print("Error: fields cannot be empty")
         
-        restaurant = Restaurant(name=name, price=price)
+#         restaurant = Restaurant(name=name, price=price)
 
-        try:
-            self.session.add(restaurant)
-            self.session.commit()
-            print("Restaurant Added successfully")
-        except Exception as e:
-            self.session.rollback()
-            print(f'Error: {e}')
+#         try:
+#             self.session.add(restaurant)
+#             self.session.commit()
+#             print("Restaurant Added successfully")
+#         except Exception as e:
+#             self.session.rollback()
+#             print(f'Error: {e}')
 
-    def add_customer(self, first_name, last_name):
+#     def add_customer(self, first_name, last_name):
         
-        if not first_name or not last_name:
-            print("Error: fields cannot be empty")
+#         if not first_name or not last_name:
+#             print("Error: fields cannot be empty")
         
-        customer = Customer(first_name=first_name, last_name=last_name)
+#         customer = Customer(first_name=first_name, last_name=last_name)
 
-        try:
-            self.session.add(customer)
-            self.session.commit()
-            print("Customer Added Successfully")
-        except Exception as e:
-            self.session.rollback()
-            print(f'Error: {e}')
+#         try:
+#             self.session.add(customer)
+#             self.session.commit()
+#             print("Customer Added Successfully")
+#         except Exception as e:
+#             self.session.rollback()
+#             print(f'Error: {e}')
 
-    def associate_review(self, restaurant_name,customer_first_name, customer_last_name, star_rating):
-        # if not restaurant_id or not customer_id or not star_rating:
-        #     print("Error: fields cannot be empty")
+#     def associate_review(self, restaurant_name,customer_first_name, customer_last_name, star_rating):
+#         # if not restaurant_id or not customer_id or not star_rating:
+#         #     print("Error: fields cannot be empty")
 
-        review = Review(restaurant_name=restaurant_name, customer_first_name=customer_first_name ,customer_last_name=customer_last_name, star_rating=star_rating)
+#         review = Review(restaurant_name=restaurant_name, customer_first_name=customer_first_name ,customer_last_name=customer_last_name, star_rating=star_rating)
 
-        try:
-            self.session.add(review)
-            self.session.commit()
-            print("Review Successfully added")
-        except Exception as e:
-            self.session.rollback()
-            print(f'Error: {e}')
+#         try:
+#             self.session.add(review)
+#             self.session.commit()
+#             print("Review Successfully added")
+#         except Exception as e:
+#             self.session.rollback()
+#             print(f'Error: {e}')
 
-    def all_reviews_for_restaurant(self, restaurant_name):
-        reviews = self.session.query(Review).filter_by(restaurant_name=restaurant_name).all()
+#     def all_reviews_for_restaurant(self, restaurant_name):
+#         reviews = self.session.query(Review).filter_by(restaurant_name=restaurant_name).all()
 
-        if reviews:
-            return reviews
-        else:
-            print("No reviews found for the restaurant")
-            return []
+#         if reviews:
+#             return reviews
+#         else:
+#             print("No reviews found for the restaurant")
+#             return []
 
 if __name__ == '__main__':
     restaurant_review_management = ReviewManagementSystem("restaurant_review_manager.db")
@@ -125,8 +125,8 @@ if __name__ == '__main__':
     # restaurant_review_management.associate_review('Urban Burger', 'Monica', 'Mwangi', 5)
 
     
-    reviews = restaurant_review_management.all_reviews_for_restaurant('Mama Rocks')
-    for review in reviews:
-        print(f"Review for {review.restaurant_name} by {review.customer_first_name} {review.customer_last_name}: {review.star_rating} stars.")
+    # reviews = restaurant_review_management.all_reviews_for_restaurant('Mama Rocks')
+    # for review in reviews:
+    #     print(f"Review for {review.restaurant_name} by {review.customer_first_name} {review.customer_last_name}: {review.star_rating} stars.")
 
     # "Review for {restaurant.name} by {review.customer_first_name} {review.customer_last_name}: {review.star_rating} stars."

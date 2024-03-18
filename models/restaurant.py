@@ -1,7 +1,8 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.orm import relationship
+from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
+Base = declarative_base(1)
 
 class Restaurant(Base):
     __tablename__ = 'restaurants'
@@ -10,7 +11,8 @@ class Restaurant(Base):
     name = Column(String, unique=True, nullable=False)
     price = Column(Integer, nullable=False)
 
-    customers = relationship('Customer', secondary="reviews")
+    customers = relationship('customer.Customer', secondary="review.reviews")
+    children = relationship("Child")
 
     def reviews():
         pass
