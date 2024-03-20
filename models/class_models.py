@@ -4,18 +4,19 @@ from sqlalchemy.orm import relationship, declarative_base
 Base = declarative_base()
 
 class Restaurant(Base):
-    __tablename__ = 'restaurants'
+    __tablename__ = "restaurants"
 
     id = Column(Integer, primary_key=True, nullable=False)
     name = Column(String, unique=True, nullable=False)
     price = Column(Integer, nullable=False)
 
-    customers = relationship('Customer', secondary="reviews")
+    # customers = relationship("Customer", secondary="reviews")
+    reviews = relationship("Review")
 
     def reviews(self):
         return self.reviews
 
-    def customers(self):
+    def customer_s(self):
         return self.customers
     
     @classmethod
@@ -34,17 +35,26 @@ class Restaurant(Base):
     
 
 class Customer(Base):
-    __tablename__ = 'customers'
+    __tablename__ = "customers"
 
     id = Column(Integer, primary_key=True, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, unique=True, nullable=False)
 
+    reviews = relationship("Review")
+
+    # restaurants = relationship("Restaurant", secondary="reviews")
+
     def customer_reviews(self):
-        return self.reviews
+        reviews = []
+        for review in self.reviews:
+            reviews.append((review.star_rating, review.restaurant_name))
+        return reviews
 
     def customer_restaurants(self):
-        return self.restaurants
+        restaurants = []
+        for review in self.reviews:
+            restaurants.append((review.restaurant_name))
 
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
@@ -53,7 +63,6 @@ class Customer(Base):
         return max(self.restaurants, key=lambda restaurant: restaurant.star_rating)
 
     def add_review(self, restaurant, rating):
-        from review import Review
         review = Review(restaurant_name=restaurant.name, rating=rating)
         self.reviews.append(review)
 
@@ -61,16 +70,17 @@ class Customer(Base):
         self.reviews = [review for review in self.reviews if review.restaurant_name != restaurant.name]
            
 class Review(Base):
-    __tablename__ = 'reviews'
+    __tablename__ = "reviews"
 
-    restaurant_name = Column(String, ForeignKey('restaurants.name'), primary_key=True, nullable=False)
+    restaurant_name = Column(String, ForeignKey("restaurants.name"), primary_key=True, nullable=False)
     customer_first_name = Column(String, nullable=False)
-    customer_last_name = Column(String, ForeignKey('customers.last_name'), primary_key=True, nullable=False)
+    customer_last_name = Column(String, ForeignKey("customers.last_name"), primary_key=True, nullable=False)
     star_rating = Column(Integer, nullable=False)
 
     __table_args__ = (
-        UniqueConstraint('restaurant_name', 'customer_last_name', 'star_rating', name='_restaurant_customer_uc'),
+        UniqueConstraint("restaurant_name", "customer_last_name", "star_rating", name="_restaurant_customer_uc"),
     )
+
 
     def customer(self):
         return self.customer
