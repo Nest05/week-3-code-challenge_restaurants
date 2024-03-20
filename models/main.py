@@ -65,10 +65,14 @@ class ReviewManagementSystem:
         else:
             return "Customer not found"
         
-    def get_customer_restaurants(self, customer_id):
-        customer = self.session.query(Customer).get(customer_id)
+    def get_customer_restaurants(self, last_name):
+        customer = self.session.query(Customer).filter(Customer.last_name == last_name).first()
         if customer:
-            return customer.restaurants()
+            reviews = customer.customer_restaurants()
+            if reviews:
+                return reviews
+            else:
+                print("No restaurants found for this customer")
         else:
             return "Customer not found"
         
@@ -91,10 +95,23 @@ if __name__ == '__main__':
 
     customer_reviews = restaurant_review_management.get_customer_reviews('Masinde')
     if isinstance(customer_reviews, list):
-        for star_rating, restaurant_name in customer_reviews:
-            print(f"Restaurant:{restaurant_name}, Star Rating: {star_rating}")
+        print("The customer has the following reviews:")
+        for star_rating in customer_reviews:
+            print(f"Star Rating: {star_rating}")
     else:
         print(customer_reviews)
+
+    customer_restaurants = restaurant_review_management.get_customer_restaurants('Masinde')
+    if isinstance(customer_restaurants, list):
+        print("The customer has reviewed the following restuarants:")
+        for restaurant_name in customer_restaurants:
+            print(f"-> {restaurant_name}")
+    else:
+        print(customer_restaurants)
+
+    print(restaurant_review_management.get_customer_full_name(1))
+
+    print(restaurant_review_management.get_customer_favorite_restaurant(2))
  
     # restaurant_review_management.add_restaurant('Jajamelo', 500)
     # restaurant_review_management.add_restaurant('Mama Rocks', 1000)

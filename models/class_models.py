@@ -48,19 +48,20 @@ class Customer(Base):
     def customer_reviews(self):
         reviews = []
         for review in self.reviews:
-            reviews.append((review.star_rating, review.restaurant_name))
+            reviews.append((review.star_rating))
         return reviews
 
     def customer_restaurants(self):
         restaurants = []
         for review in self.reviews:
             restaurants.append((review.restaurant_name))
+        return restaurants
 
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
 
     def favorite_restaurant(self):
-        return max(self.restaurants, key=lambda restaurant: restaurant.star_rating)
+        return max(self.reviews, key=lambda review: review.star_rating).restaurant_name
 
     def add_review(self, restaurant, rating):
         review = Review(restaurant_name=restaurant.name, rating=rating)
