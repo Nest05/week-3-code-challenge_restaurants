@@ -1,17 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-from customer import Base as CustomerBase, Customer
-from restaurant import Base as RestaurantBase, Restaurant
-from review import Base as ReviewBase, Review
+from class_models import Base, Customer, Restaurant, Review
 
 class ReviewManagementSystem:
 
     def __init__(self, db_name):
         self.engine = create_engine(f'sqlite:///{db_name}')
-        CustomerBase.metadata.create_all(self.engine)
-        RestaurantBase.metadata.create_all(self.engine)
-        ReviewBase.metadata.create_all(self.engine)
+        Base.metadata.create_all(self.engine)
         Session = sessionmaker(bind=self.engine)
         self.session = Session()
     
@@ -46,5 +41,5 @@ class ReviewManagementSystem:
 if __name__ == '__main__':
     restaurant_review_management = ReviewManagementSystem("restaurant_review_manager.db")
 
-    customer_reviews = restaurant_review_management.get_customer_reviews(1)
-    print(customer_reviews)
+    # customer_reviews = restaurant_review_management.get_customer_reviews(1)
+    # print(customer_reviews)
